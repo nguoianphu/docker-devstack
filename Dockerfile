@@ -18,7 +18,7 @@ RUN set -x \
 RUN set -x \
     && adduser stack \
     && echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && mkdir -P /opt/devstack \
+    && mkdir -p /opt/devstack \
     && chown -R stack /opt/devstack
 
 # Download DevStack
