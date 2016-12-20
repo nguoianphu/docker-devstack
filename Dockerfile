@@ -17,9 +17,7 @@ RUN set -x \
 # Add Stack User
 RUN set -x \
     && adduser stack \
-    && echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && mkdir /opt \
-    && chown -R stack /opt
+    && echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 USER stack
 
@@ -40,7 +38,7 @@ RUN set -x \
     && ls -la \
     && cd /opt/devstack \
     && pwd \
-    && ls -la \    
+    && ls -la \
     && ./stack.sh
 
 # Copy entrypoint file
