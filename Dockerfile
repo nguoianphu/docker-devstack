@@ -8,7 +8,7 @@ MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 
 # Install yum tools
 RUN set -x \
-    && yum install -y redhat-lsb-core epel-release python-pip git \
+    && yum install -y redhat-lsb-core epel-release net-tools python-pip git \
     && yum groupinstall -y "Development Tools" --skip-broken \
     && yum update -y
 
