@@ -8,9 +8,9 @@ MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 
 # Install yum tools
 RUN set -x \
-    && yum install -y redhat-lsb-core epel-release iproute python-pip git \
-    && yum groupinstall -y "Development Tools" --skip-broken \
-    && yum update -y
+    && yum update -y \
+    && yum install -y redhat-lsb-core epel-release iproute python-pip git sudo \
+    && yum groupinstall -y "Development Tools" --skip-broken    
 
 
 
