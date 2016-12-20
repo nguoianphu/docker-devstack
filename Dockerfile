@@ -37,6 +37,8 @@ COPY local.conf /
 USER stack
 
 RUN set -x \
+    pwd \
+    ls -la \
     && ./stack.sh
 
 # Copy entrypoint file
