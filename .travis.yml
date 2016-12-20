@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+
+script:
+  - echo "Build local image"
+  - docker build -t devstack .
+  - docker images
+  - docker run -d -p 80:80 -p 5000:5000 --name my-devstack devstack
+  - echo "Wait devstack to start up"
+  - sleep 3600
+  - docker ps -a  
+  - docker logs my-devstack
+  - docker exec -it my-devstack ps -ef
+  - docker stop my-devstack
+  - echo "Testing public image on Docker Hub"
+  - docker run -d -p 80:80 -p 5000:5000 --name nguoianphu-devstack nguoianphu/docker-devstack
+  - echo "Wait devstack to start up"
+  - sleep 3600
+  - docker ps -a
+  - docker images
+  - echo "Checking devstack"  
+  - docker logs nguoianphu-devstack
+  - docker exec -it nguoianphu-devstack ps -ef
+  - docker stop nguoianphu-devstack
