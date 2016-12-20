@@ -20,8 +20,6 @@ RUN set -x \
     && echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \    
 
 
-USER stack
-
 WORKDIR /home/stack
 
 # Download DevStack
@@ -36,6 +34,7 @@ WORKDIR /home/stack/devstack
 COPY local.conf /
 
 # Start the install
+USER stack
 
 RUN set -x \
     && ./stack.sh
