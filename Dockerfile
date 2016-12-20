@@ -26,7 +26,7 @@ RUN set -x \
 
 USER stack
 
-WORKDIR /home/stack
+WORKDIR /home/stack/devstack
 
 # Create a local.conf file
 # with 4 passwords preset at the root of the devstack git repo.
