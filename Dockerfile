@@ -15,16 +15,18 @@ RUN set -x \
 
 
 # Add Stack User
-# Download DevStack
-
 RUN set -x \
     && adduser stack \
-    && echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && su stack \
-    && cd /home/stack \
-    && git clone https://git.openstack.org/openstack-dev/devstack
+    && echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \    
+
 
 USER stack
+
+WORKDIR /home/stack
+
+# Download DevStack
+RUN set -x \
+    && git clone https://git.openstack.org/openstack-dev/devstack
 
 WORKDIR /home/stack/devstack
 
