@@ -17,28 +17,29 @@ RUN set -x \
 # Add Stack User
 RUN set -x \
     && adduser stack \
-    && echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \    
-
-
-WORKDIR /home/stack
+    && echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
+    && mkdir -P /opt/devstack \
+    && chown -R stack /opt/devstack
 
 # Download DevStack
 RUN set -x \
+    cd /opt/devstack \
     && git clone https://git.openstack.org/openstack-dev/devstack
-
-WORKDIR /home/stack/devstack
 
 # Create a local.conf file
 # with 4 passwords preset at the root of the devstack git repo.
 
-COPY local.conf /
+COPY local.conf /opt/devstack
 
 # Start the install
 USER stack
 
+WORKDIR /opt/devstack
+
 RUN set -x \
     pwd \
     ls -la \
+    cd /opt/devstack \
     && ./stack.sh
 
 # Copy entrypoint file
