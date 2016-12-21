@@ -38,7 +38,8 @@ RUN set -x \
     && cd /opt/devstack \
     # && sed -e 's/if sysctl net\.ipv4\.ip_local_reserved_ports/if !sysctl net\.ipv4\.ip_local_reserved_ports/' tools/fixup_stuff.sh \
     # && sed -e 's/2>\&1/ /' tools/fixup_stuff.sh \
-    && sed -e 's/>\/dev\/null 2>\&/ /' tools/fixup_stuff.sh \
+    # && sed -e 's/>\/dev\/null 2>\&/ /' tools/fixup_stuff.sh \
+    && sed -e 's/sudo sysctl/\# sudo sysctl/' tools/fixup_stuff.sh \
     && ./stack.sh
 
 # Copy entrypoint file
