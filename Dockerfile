@@ -40,7 +40,7 @@ RUN set -x \
     # && sed -e 's/2>\&1/ /' tools/fixup_stuff.sh \
     # && sed -e 's/>\/dev\/null 2>\&/ /' tools/fixup_stuff.sh \
     # && sed -e 's/sudo sysctl/\# sudo sysctl/' tools/fixup_stuff.sh \
-    && sed -e 's/sudo sysctl -w/\# sudo sysctl/' tools/fixup_stuff.sh \
+    && sed -e 's/sudo sysctl -w/\# sudo sysctl/' /opt/devstack/tools/fixup_stuff.sh \
     && ./stack.sh
 
 # Copy entrypoint file
