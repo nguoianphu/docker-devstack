@@ -35,11 +35,8 @@ COPY local.conf /opt/devstack/
 
 # Start the install
 RUN set -x \
-    && pwd \
-    && ls -la \
     && cd /opt/devstack \
-    && pwd \
-    && ls -la \
+    && sed -e 's/if sysctl net\.ipv4\.ip_local_reserved_ports/if !sysctl net\.ipv4\.ip_local_reserved_ports/' tools/fixup_stuff.sh \
     && ./stack.sh
 
 # Copy entrypoint file
