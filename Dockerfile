@@ -36,8 +36,8 @@ COPY local.conf /opt/devstack/
 # Start the install
 RUN set -x \
     && cd /opt/devstack \
-    && sed -ri 's/sudo sysctl/\# sudo sysctl/' tools/fixup_stuff.sh \
-    && grep -q '# sudo sysctl' tools/fixup_stuff.sh \
+    && sed -ri 's/sudo sysctl/echo sudo sysctl/' tools/fixup_stuff.sh \
+    && grep -q 'echo sudo sysctl' tools/fixup_stuff.sh \
     && ./stack.sh
 
 # Copy entrypoint file
