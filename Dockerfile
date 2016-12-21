@@ -10,7 +10,8 @@ MAINTAINER Tuan Vo <vohungtuan@gmail.com>
 RUN set -x \
     && yum update -y \
     && yum install -y redhat-lsb-core epel-release iproute python-pip git sudo \
-    && yum groupinstall -y "Development Tools" --skip-broken    
+    && yum groupinstall -y "Development Tools" --skip-broken \
+    && yum clean all
 
 
 
@@ -36,8 +37,8 @@ COPY local.conf /opt/devstack/
 # Start the install
 RUN set -x \
     && cd /opt/devstack \
-    && sed -ri 's/sudo sysctl/echo sudo sysctl/' tools/fixup_stuff.sh \
-    && grep -q 'echo sudo sysctl' tools/fixup_stuff.sh \
+    && sed -ri 's@sudo sysctl@echo sudo sysctl@' tools/fixup_stuff.sh \
+    && sed -ri 's@sudo \/bin\/systemctl restart \$1@sudo \/bin\/systemctl enable \$1\.service\n\tsudo \/bin\/systemctl restart \$1@' functions-common \  
     && ./stack.sh
 
 # Copy entrypoint file
