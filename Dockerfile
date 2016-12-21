@@ -38,7 +38,8 @@ COPY local.conf /opt/devstack/
 RUN set -x \
     && cd /opt/devstack \
     && sed -ri 's@sudo sysctl@echo sudo sysctl@' tools/fixup_stuff.sh \
-    && sed -ri 's@sudo \/bin\/systemctl restart \$1@sudo \/bin\/systemctl enable \$1\.service\n\tsudo \/bin\/systemctl restart \$1@' functions-common \  
+    # && sed -ri 's@sudo \/bin\/systemctl restart \$1@sudo \/bin\/systemctl enable \$1\.service\n\tsudo \/bin\/systemctl restart \$1@' functions-common \
+    && sed -ri 's@restart_service openvswitch$@# restart_service openvswitch$@' lib/neutron_plugins/ovs_base \
     && ./stack.sh
 
 # Copy entrypoint file
