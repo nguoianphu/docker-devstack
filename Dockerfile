@@ -19,7 +19,9 @@ RUN set -x \
 RUN set -x \
     && adduser stack \
     && echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && chown -R stack /opt
+    && chown -R stack /opt \
+    && setenforce 0 \
+    && cat /etc/selinux/config
 
 USER stack
 
