@@ -13,7 +13,9 @@ RUN set -x \
     && yum groupinstall -y "Development Tools" --skip-broken \
     && yum clean all
 
-
+# Set your Linux system hostname
+# RUN set -x \
+    # && hostnamectl set-hostname localhost
 
 # Add Stack User
 RUN set -x \
@@ -34,7 +36,7 @@ RUN set -x \
 COPY local.conf /opt/devstack/
 
 
-# Start the install
+# Customize the DevStack
 RUN set -x \
     && cd /opt/devstack \
     && sed -ri 's@sudo sysctl@echo sudo sysctl@' tools/fixup_stuff.sh \
@@ -42,8 +44,15 @@ RUN set -x \
     && sed -ri 's@sudo \/bin\/systemctl restart \$1@sudo \/bin\/systemctl restart \$1 || true@' functions-common \
     # && sed -ri 's@restart_service openvswitch$@restart_service openvswitch || true@' lib/neutron_plugins/ovs_base \
     # && sed -ri 's@restart_service \$LIBVIRT_DAEMON@restart_service \$LIBVIRT_DAEMON || true@' lib/nova_plugins/functions-libvirt \
-    # && sed -ri 's@restart_service rabbitmq-server@restart_service rabbitmq-server || true@' lib/rpc_backend \
+    # && sed -ri 's@restart_service rabbitmq-server@restart_service rabbitmq-server || true@' lib/rpc_backend \    
+
+
+
+# Start the install
+RUN set -x \
+    && cd /opt/devstack \
     && ./stack.sh
+
 
 # Copy entrypoint file
 
