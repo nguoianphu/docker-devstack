@@ -40,6 +40,7 @@ RUN set -x \
     && sed -ri 's@sudo sysctl@echo sudo sysctl@' tools/fixup_stuff.sh \
     # && sed -ri 's@sudo \/bin\/systemctl restart \$1@sudo \/bin\/systemctl enable \$1\.service\n\tsudo \/bin\/systemctl restart \$1@' functions-common \
     && sed -ri 's@restart_service openvswitch$@echo restart_service openvswitch$@' lib/neutron_plugins/ovs_base \
+    && sed -ri 's@sudo sysctl@echo sudo sysctl@' lib/nova \
     && ./stack.sh
 
 # Copy entrypoint file
