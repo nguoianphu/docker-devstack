@@ -39,9 +39,10 @@ RUN set -x \
     && cd /opt/devstack \
     && sed -ri 's@sudo sysctl@echo sudo sysctl@' tools/fixup_stuff.sh \
     # && sed -ri 's@sudo \/bin\/systemctl restart \$1@sudo \/bin\/systemctl enable \$1\.service\n\tsudo \/bin\/systemctl restart \$1@' functions-common \
-    && sed -ri 's@restart_service openvswitch$@echo restart_service openvswitch$@' lib/neutron_plugins/ovs_base \
+    && sed -ri 's@restart_service openvswitch$@restart_service openvswitch || true@' lib/neutron_plugins/ovs_base \
     && sed -ri 's@sudo sysctl@echo sudo sysctl@' lib/nova \
     && sed -ri 's@restart_service \$LIBVIRT_DAEMON@restart_service \$LIBVIRT_DAEMON || true@' lib/nova_plugins/functions-libvirt \
+    && sed -ri 's@restart_service rabbitmq-server@restart_service rabbitmq-server || true@' lib/rpc_backend \
     && ./stack.sh
 
 # Copy entrypoint file
