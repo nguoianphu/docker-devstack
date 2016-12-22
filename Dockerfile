@@ -36,6 +36,7 @@ USER stack
 # Download DevStack
 RUN set -x \
     && cd /opt \
+    && mkdir -p /opt/stack/logs \
     && git clone https://git.openstack.org/openstack-dev/devstack
 
 # Create a local.conf file
