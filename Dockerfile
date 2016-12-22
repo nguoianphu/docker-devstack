@@ -23,6 +23,14 @@ RUN set -x \
     && echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
     && chown -R stack /opt
 
+# Copy entrypoint file
+
+COPY docker-entrypoint.sh /
+
+RUN set -x \
+ && chmod +x /docker-entrypoint.sh \
+ && chown stack /docker-entrypoint.sh
+
 USER stack
 
 # Download DevStack
@@ -44,7 +52,6 @@ RUN set -x \
     && sed -ri 's@sudo \/bin\/systemctl restart \$1@sudo \/bin\/systemctl restart \$1 || true@' functions-common \
     && sed -ri 's@echo_summary "Starting RabbitMQ"@\t\techo_summary "Starting RabbitMQ"\n\t\tstart_service rabbitmq-server@' lib/rpc_backend
     
-    
     # && sed -ri 's@restart_service openvswitch$@restart_service openvswitch || true@' lib/neutron_plugins/ovs_base \
     # && sed -ri 's@restart_service \$LIBVIRT_DAEMON@restart_service \$LIBVIRT_DAEMON || true@' lib/nova_plugins/functions-libvirt \
     # && sed -ri 's@restart_service rabbitmq-server@restart_service rabbitmq-server || true@' lib/rpc_backend \    
@@ -57,14 +64,6 @@ RUN set -x \
     && ./stack.sh
 
 
-# Copy entrypoint file
-
-COPY docker-entrypoint.sh /
-
-RUN set -x \
- && chmod +x /docker-entrypoint.sh
-
- 
 EXPOSE 80
 EXPOSE 5000
  
