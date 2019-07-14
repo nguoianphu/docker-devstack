@@ -6,7 +6,7 @@ script:
   - echo "Build local image"
   - docker build -t devstack .
   - docker images
-  - docker run -d -p 80:80 -p 5000:5000 --name my-devstack devstack
+  - docker run -d --cap-add=NET_ADMIN -p 80:80 -p 5000:5000 --name my-devstack devstack
   - echo "Wait devstack to start up"
   - sleep 180
   - docker ps -a  
@@ -14,7 +14,7 @@ script:
   - docker exec -it my-devstack ps -ef
   - docker stop my-devstack
   - echo "Testing public image on Docker Hub"
-  - docker run -d -p 80:80 -p 5000:5000 --name nguoianphu-devstack nguoianphu/docker-devstack
+  - docker run --cap-add=NET_ADMIN -d -p 80:80 -p 5000:5000 --name nguoianphu-devstack nguoianphu/docker-devstack
   - echo "Wait devstack to start up"
   - sleep 180
   - docker ps -a
